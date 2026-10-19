@@ -1,15 +1,15 @@
 # FrameFlow media player
 
-FrameFlow is a Windows media viewer prototype built with C#/.NET and WinUI 3. It keeps transport controls below the media, supports images and videos in one collection, zooms either media type, steps video in both directions, and visualizes indexed key frames.
+FrameFlow is a Windows media viewer prototype built with C#/.NET and WinUI 3. It keeps transport controls below the media, supports images and videos in one playlist, zooms either media type, steps video in both directions, and visualizes indexed key frames.
 
 ## Architecture
 
 - `MediaPlayer`: WinUI 3 interface and Windows playback adapter.
-- `MediaPlayer.Core`: media detection, collection graph expansion, symbolic-link resolution, random ordering, and FFmpeg keyframe indexing.
-- `MediaPlayer.Core.Tests`: dependency-free executable tests for the collection engine.
-- `examples/sample.collection.json`: collection format example.
+- `MediaPlayer.Core`: media detection, playlist graph expansion, symbolic-link resolution, random ordering, and FFmpeg keyframe indexing.
+- `MediaPlayer.Core.Tests`: dependency-free executable tests for the playlist engine.
+- `examples/sample.playlist.json`: playlist format example.
 
-The complete recursive collection is materialized before Fisher-Yates shuffling. Cycles are reported with their dependency path. Directory traversal resolves symbolic links and tracks resolved directories to prevent link loops.
+The complete recursive playlist is materialized before Fisher-Yates shuffling. Cycles are reported with their dependency path. Directory traversal resolves symbolic links and tracks resolved directories to prevent link loops.
 
 ## Build
 

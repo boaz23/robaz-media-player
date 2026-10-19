@@ -2,7 +2,7 @@ namespace MediaPlayer.Core;
 
 public enum MediaKind { Image, Video }
 
-public sealed record MediaItem(string Path, MediaKind Kind, string SourceCollection);
+public sealed record MediaItem(string Path, MediaKind Kind, string SourcePlaylist);
 
 public static class MediaTypes
 {

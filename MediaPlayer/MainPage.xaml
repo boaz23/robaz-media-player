@@ -27,9 +27,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Button Click="OpenFiles_Click" Content="Open media" />
-            <Button Grid.Column="1" Click="OpenCollection_Click" Content="Open collection" />
+            <Button Grid.Column="1" Click="OpenPlaylist_Click" Content="Open playlist" />
             <ToggleButton x:Name="RandomButton" Grid.Column="2" Content="Random order" />
-            <TextBlock x:Name="TitleText" Grid.Column="3" VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold" Text="Open media or a collection to begin" TextTrimming="CharacterEllipsis" />
+            <TextBlock x:Name="TitleText" Grid.Column="3" VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold" Text="Open media or a playlist to begin" TextTrimming="CharacterEllipsis" />
             <TextBlock x:Name="CountText" Grid.Column="4" VerticalAlignment="Center" Foreground="#AAB2C0" />
         </Grid>
 

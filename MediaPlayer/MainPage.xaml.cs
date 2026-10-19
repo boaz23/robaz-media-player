@@ -14,7 +14,7 @@ namespace MediaPlayer;
 
 public sealed partial class MainPage : Page
 {
-    private readonly CollectionResolver _collections = new();
+    private readonly PlaylistResolver _playlists = new();
     private readonly IKeyframeIndex _keyframes = new FfprobeKeyframeIndex();
     private readonly DispatcherTimer _positionTimer = new() { Interval = TimeSpan.FromMilliseconds(100) };
     private IReadOnlyList<MediaItem> _items = [];
@@ -43,10 +43,10 @@ public sealed partial class MainPage : Page
         InitializePicker(picker);
         var files = await picker.PickMultipleFilesAsync();
         if (files.Count == 0) return;
-        await UseSnapshotAsync(_collections.FromLooseFiles(files.Select(file => file.Path), RandomButton.IsChecked == true));
+        await UseSnapshotAsync(_playlists.FromLooseFiles(files.Select(file => file.Path), RandomButton.IsChecked == true));
     }
 
-    private async void OpenCollection_Click(object sender, RoutedEventArgs e)
+    private async void OpenPlaylist_Click(object sender, RoutedEventArgs e)
     {
         var picker = new FileOpenPicker { SuggestedStartLocation = PickerLocationId.DocumentsLibrary };
         picker.FileTypeFilter.Add(".json");
@@ -55,8 +55,8 @@ public sealed partial class MainPage : Page
         if (file is null) return;
         try
         {
-            StatusText.Text = "Rendering the complete collection…";
-            await UseSnapshotAsync(await _collections.MaterializeAsync(file.Path, RandomButton.IsChecked == true));
+            StatusText.Text = "Rendering the complete playlist…";
+            await UseSnapshotAsync(await _playlists.MaterializeAsync(file.Path, RandomButton.IsChecked == true));
         }
         catch (Exception exception) { StatusText.Text = exception.Message; }
     }
@@ -67,11 +67,11 @@ public sealed partial class MainPage : Page
         WinRT.Interop.InitializeWithWindow.Initialize(picker, windowHandle);
     }
 
-    private async Task UseSnapshotAsync(CollectionSnapshot snapshot)
+    private async Task UseSnapshotAsync(PlaylistSnapshot snapshot)
     {
         _items = snapshot.Items;
         _index = _items.Count == 0 ? -1 : 0;
-        StatusText.Text = snapshot.IsRandomized ? "Full collection rendered and shuffled" : "Collection ready";
+        StatusText.Text = snapshot.IsRandomized ? "Full playlist rendered and shuffled" : "Playlist ready";
         await OpenCurrentAsync();
     }
 
@@ -104,7 +104,7 @@ public sealed partial class MainPage : Page
             ImageView.Source = new BitmapImage(new Uri(item.Path));
             ImageView.Visibility = Visibility.Visible;
             Timeline.IsEnabled = false;
-            StatusText.Text = item.SourceCollection;
+            StatusText.Text = item.SourcePlaylist;
             return;
         }
 
