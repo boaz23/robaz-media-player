@@ -1,0 +1,8 @@
+{
+  "name": "Sample collection",
+  "entries": [
+    { "path": "C:\\Media\\Photos", "recursive": true },
+    { "path": "C:\\Media\\clip.mp4" },
+    { "collection": "another.collection.json" }
+  ]
+}
